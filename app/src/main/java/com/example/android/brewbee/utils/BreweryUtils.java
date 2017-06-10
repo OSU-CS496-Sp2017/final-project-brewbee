@@ -27,11 +27,20 @@ public class BreweryUtils {
     private final static String BREWERY_QUERY_PARAM = "q";
     private final static String BREWERY_KEYWORD = "key";
     private final static String BREWERY_BEER = "beer";
+    private final static String BREWERY_SORT_PARAM = "sort";
+    private final static String BREWERY_DEFAULT_SORT = "stars";
+
 
     private final static String BREWERY_APPID = "7c166ab511e0516204c3a689b0f53de2";
 
-    public static class BrewItem implements Serializable {
 
+
+    public static class BrewItem implements Serializable {
+        public static final String EXTRA_SEARCH_RESULT = "BreweryUtils.SearchResult";
+        public String fullname;
+        public String description;
+        public String htmlURL;
+        public int stars;
     }
 
     public static String buildForecastURL(String brewSearch) {
@@ -41,6 +50,27 @@ public class BreweryUtils {
                     .appendQueryParameter(BREWERY_KEYWORD, BREWERY_APPID)
                     .build()
                     .toString();
+    }
+
+    public static ArrayList<BrewItem> parseBrewSearchResultsJSON(String searchResultsJSON) {
+        try {
+            JSONObject searchResultsObj = new JSONObject(searchResultsJSON);
+            JSONArray searchResultsItems = searchResultsObj.getJSONArray("items");
+
+            ArrayList<BrewItem> searchResultsList = new ArrayList<BrewItem>();
+            for (int i = 0; i < searchResultsItems.length(); i++) {
+                BrewItem searchResult = new BrewItem();
+                JSONObject searchResultItem = searchResultsItems.getJSONObject(i);
+                searchResult.fullname = searchResultItem.getString("full_name");
+                searchResult.description = searchResultItem.getString("description");
+                searchResult.htmlURL = searchResultItem.getString("html_url");
+                searchResult.stars = searchResultItem.getInt("stargazers_count");
+                searchResultsList.add(searchResult);
+            }
+            return searchResultsList;
+        } catch (JSONException e) {
+            return null;
+        }
     }
 
 
