@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity implements BrewAdapter.OnSea
             public String loadInBackground() {
                 if(args != null){
                     String brewSearchURL = args.getString(SEARCH_URL_KEY);
-                    Log.d(TAG, "AsyncTaskLoader making nerowkr call:" + brewSearchURL);
+                    Log.d(TAG, "AsyncTaskLoader making network call:" + brewSearchURL);
                     String searchResults = null;
                     try{
                         searchResults = NetworkUtils.doHTPPGet(brewSearchURL);

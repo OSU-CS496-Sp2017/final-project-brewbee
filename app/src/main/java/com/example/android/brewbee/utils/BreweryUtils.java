@@ -7,6 +7,7 @@ package com.example.android.brewbee.utils;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.support.v7.preference.PreferenceManager;
+import android.util.Log;
 
 //import com.example.android.brewbee.R;
 
@@ -26,6 +27,7 @@ public class BreweryUtils {
     private static final String BREWERY_BASE_URL = "http://api.brewerydb.com/v2/";
     private final static String BREWERY_QUERY_PARAM = "q";
     private final static String BREWERY_KEYWORD = "key";
+    private final static String BREWERY_SEARCH = "search";
     private final static String BREWERY_BEER = "beer";
     private final static String BREWERY_SORT_PARAM = "sort";
     private final static String BREWERY_DEFAULT_SORT = "stars";
@@ -37,15 +39,18 @@ public class BreweryUtils {
 
     public static class BrewItem implements Serializable {
         public static final String EXTRA_SEARCH_RESULT = "BreweryUtils.SearchResult";
+        public String brewID;
         public String fullname;
         public String description;
-        public String htmlURL;
-        public int stars;
+//        public String htmlURL;
     }
 
     public static String buildForecastURL(String brewSearch) {
 
+        Log.d("BrewUtil", "We got a query - " + brewSearch);
+
         return Uri.parse(BREWERY_BASE_URL).buildUpon()
+                    .appendPath(BREWERY_SEARCH)
                     .appendQueryParameter(BREWERY_QUERY_PARAM, brewSearch)
                     .appendQueryParameter(BREWERY_KEYWORD, BREWERY_APPID)
                     .build()
@@ -61,10 +66,11 @@ public class BreweryUtils {
             for (int i = 0; i < searchResultsItems.length(); i++) {
                 BrewItem searchResult = new BrewItem();
                 JSONObject searchResultItem = searchResultsItems.getJSONObject(i);
-                searchResult.fullname = searchResultItem.getString("full_name");
+                searchResult.brewID = searchResultItem.getString("id");
+ //               searchResult.fullname = searchResultItem.getString("full_name");
                 searchResult.description = searchResultItem.getString("description");
-                searchResult.htmlURL = searchResultItem.getString("html_url");
-                searchResult.stars = searchResultItem.getInt("stargazers_count");
+ //               searchResult.htmlURL = searchResultItem.getString("html_url");
+                Log.d("Bresults", searchResult.brewID + " " + searchResult.description);
                 searchResultsList.add(searchResult);
             }
             return searchResultsList;

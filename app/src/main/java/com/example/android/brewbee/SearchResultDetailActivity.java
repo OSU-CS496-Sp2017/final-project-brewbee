@@ -24,14 +24,14 @@ public class SearchResultDetailActivity extends AppCompatActivity {
 
         mSearchResultNameTV = (TextView)findViewById(R.id.tv_search_result_name);
         mSearchResultDescriptionTV = (TextView)findViewById(R.id.tv_search_result_description);
-        mSearchResultStarsTV = (TextView)findViewById(R.id.tv_search_result_stars);
+ //       mSearchResultStarsTV = (TextView)findViewById(R.id.tv_search_result_stars);
 
         Intent intent = getIntent();
         if(intent != null && intent.hasExtra(BreweryUtils.BrewItem.EXTRA_SEARCH_RESULT)){
             BreweryUtils.BrewItem searchResult = (BreweryUtils.BrewItem)intent.getSerializableExtra(BreweryUtils.BrewItem.EXTRA_SEARCH_RESULT);
             mSearchResultNameTV.setText(searchResult.fullname);
             mSearchResultDescriptionTV.setText(searchResult.description);
-            mSearchResultStarsTV.setText(Integer.toString(searchResult.stars));
+  //          mSearchResultStarsTV.setText(Integer.toString(searchResult.stars));
         }
     }
 }
