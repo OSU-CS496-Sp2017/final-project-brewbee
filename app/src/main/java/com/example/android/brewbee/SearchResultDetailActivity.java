@@ -32,17 +32,18 @@ public class SearchResultDetailActivity extends AppCompatActivity {
 
         mSearchResultNameTV = (TextView)findViewById(R.id.tv_search_result_name);
         mSearchResultDescriptionTV = (TextView)findViewById(R.id.tv_search_result_description);
-        mSearchResultStarsTV = (TextView)findViewById(R.id.tv_search_result_stars);
+ //       mSearchResultStarsTV = (TextView)findViewById(R.id.tv_search_result_stars);
 
         BrewSearchDBHelper dbHelper = new BrewSearchDBHelper(this);
         mDB = dbHelper.getWritableDatabase();
 
         Intent intent = getIntent();
         if(intent != null && intent.hasExtra(BreweryUtils.BrewItem.EXTRA_SEARCH_RESULT)){
+
             mBrewItem = (BreweryUtils.BrewItem)intent.getSerializableExtra(BreweryUtils.BrewItem.EXTRA_SEARCH_RESULT);
             mSearchResultNameTV.setText(mBrewItem.fullname);
             mSearchResultDescriptionTV.setText(mBrewItem.description);
-            mSearchResultStarsTV.setText(Integer.toString(mBrewItem.stars));
+            //mSearchResultStarsTV.setText(Integer.toString(mBrewItem.stars));
 
             mFavorited = checkBrewIsInDB();
         }
@@ -64,6 +65,7 @@ public class SearchResultDetailActivity extends AppCompatActivity {
             );
             isInDB = cursor.getCount() > 0;
             cursor.close();
+
         }
         return isInDB;
     }
