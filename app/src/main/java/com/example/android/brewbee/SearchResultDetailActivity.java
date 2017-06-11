@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
@@ -69,4 +70,16 @@ public class SearchResultDetailActivity extends AppCompatActivity {
         }
         return isInDB;
     }
+
+
+    //share location stuff
+    //public void showForecastLocation() {
+    //    Uri geoUri = Uri.parse("geo:0,0").buildUpon()
+    //            .appendQueryParameter("q", /*location here*/)
+    //            .build();
+    //    Intent mapIntent = new Intent(Intent.ACTION_VIEW, geoUri);
+    //   if (mapIntent.resolveActivity(getPackageManager()) != null) {
+    //        startActivity(mapIntent);
+    //    }
+    //}
 }
