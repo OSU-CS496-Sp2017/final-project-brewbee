@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.android.brewbee.R;
@@ -18,18 +20,20 @@ import com.example.android.brewbee.utils.BreweryUtils;
  */
 
 public class SearchResultDetailActivity extends AppCompatActivity {
+    private ImageView mFavoriteIV;
     private TextView mSearchResultNameTV;
     private TextView mSearchResultDescriptionTV;
     private TextView mSearchResultStarsTV;
     private BreweryUtils.BrewItem mBrewItem;
     private SQLiteDatabase mDB;
-    private boolean mFavorited;
+    private boolean mIsFavorited;
 
     @Override
     protected void onCreate(Bundle saveInstanceState){
         super.onCreate(saveInstanceState);
         setContentView(R.layout.activity_search_result_detail);
 
+        mFavoriteIV = (ImageView)findViewById(R.id.iv_search_result_favorite);
         mSearchResultNameTV = (TextView)findViewById(R.id.tv_search_result_name);
         mSearchResultDescriptionTV = (TextView)findViewById(R.id.tv_search_result_description);
  //       mSearchResultStarsTV = (TextView)findViewById(R.id.tv_search_result_stars);
@@ -45,9 +49,61 @@ public class SearchResultDetailActivity extends AppCompatActivity {
             mSearchResultDescriptionTV.setText(mBrewItem.description);
             //mSearchResultStarsTV.setText(Integer.toString(mBrewItem.stars));
 
-            mFavorited = checkBrewIsInDB();
+            mIsFavorited = checkBrewIsInDB();
+        }
+
+        mFavoriteIV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                mIsFavorited = !mIsFavorited;
+                updateFavoriteInDB();
+                updateFavoriteIconState();
+            }
+        });
+    }
+
+    private void updateFavoriteIconState(){
+        if(mIsFavorited){
+            mFavoriteIV.setImageResource(R.drawable.ic_star_yellow);
+        }
+        else{
+            mFavoriteIV.setImageResource(R.drawable.ic_star_border_black);
         }
     }
+
+    private void updateFavoriteInDB(){
+        if(mIsFavorited){
+            addFavoriteToDB();
+        }
+        else{
+            deleteFavoriteFromDB();
+        }
+    }
+
+    private long addFavoriteToDB() {
+        if(mBrewItem != null){
+            ContentValues values = new ContentValues();
+            values.put(BrewSearchContract.FavoriteBrew.COLUMN_BEER_NAME, mBrewItem.fullname);
+            values.put(BrewSearchContract.FavoriteBrew.COLUMN_DESCRIPTION, mBrewItem.description);
+            values.put(BrewSearchContract.FavoriteBrew.COLUMN_API_ID, mBrewItem.brewID);
+            values.put(BrewSearchContract.FavoriteBrew.COLUMN_ABV_MIN, mBrewItem.abvMin);
+            values.put(BrewSearchContract.FavoriteBrew.COLUMN_ABV_MAX, mBrewItem.abvMax);
+            values.put(BrewSearchContract.FavoriteBrew.COLUMN_BREWERY, mBrewItem.brewery);
+            return mDB.insert(BrewSearchContract.FavoriteBrew.TABLE_NAME, null, values);
+        }
+        else{
+            return -1;
+        }
+    }
+
+    private void deleteFavoriteFromDB(){
+        if(mBrewItem != null){
+            String sqlSelection = BrewSearchContract.FavoriteBrew.COLUMN_BEER_NAME + " = ?";
+            String[] sqlSelectionArgs = { mBrewItem.fullname };
+            mDB.delete(BrewSearchContract.FavoriteBrew.TABLE_NAME, sqlSelection, sqlSelectionArgs);
+        }
+    }
+
 
     private boolean checkBrewIsInDB(){
         boolean isInDB = false;
