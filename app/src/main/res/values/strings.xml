@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Brew Bee</string>
     <string name="loading_error_message" />
+    <string name="action_location">Show brewery location</string>
 </resources>
