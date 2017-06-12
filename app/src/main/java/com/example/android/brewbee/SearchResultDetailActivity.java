@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import android.view.Menu;
 
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -132,19 +133,30 @@ public class SearchResultDetailActivity extends AppCompatActivity {
 
 
     //share location stuff
-    //public void showForecastLocation() {
-    //    Uri geoUri = Uri.parse("geo:0,0").buildUpon()
-    //            .appendQueryParameter("q", /*location here*/)
-    //            .build();
-    //    Intent mapIntent = new Intent(Intent.ACTION_VIEW, geoUri);
-    //   if (mapIntent.resolveActivity(getPackageManager()) != null) {
-    //        startActivity(mapIntent);
-    //    }
-    //}
+    public void showForecastLocation() {
+        Uri geoUri = Uri.parse("geo:0,0").buildUpon()
+                .appendQueryParameter("q","temp" /*location here*/)
+                .build();
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW, geoUri);
+       if (mapIntent.resolveActivity(getPackageManager()) != null) {
+            startActivity(mapIntent);
+       }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.brew_item_detail, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_location:
+                showForecastLocation();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
