@@ -42,6 +42,9 @@ public class BreweryUtils {
         public String brewID;
         public String fullname;
         public String description;
+        public float abvMin;
+        public float abvMax;
+        public String brewery;
 //        public String htmlURL;
     }
 
