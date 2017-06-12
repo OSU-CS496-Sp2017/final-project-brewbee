@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
 import android.widget.TextView;
 
 import com.example.android.brewbee.R;
@@ -82,4 +83,10 @@ public class SearchResultDetailActivity extends AppCompatActivity {
     //        startActivity(mapIntent);
     //    }
     //}
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.brew_item_detail, menu);
+        return true;
+    }
 }
