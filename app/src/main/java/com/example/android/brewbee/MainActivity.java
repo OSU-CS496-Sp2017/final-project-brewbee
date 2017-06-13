@@ -135,7 +135,7 @@ public class MainActivity extends AppCompatActivity implements BrewAdapter.OnSea
         Log.d(TAG, "AsyincTaskLoader's onLoadFinished called");
         mLoadingIndicatorPB.setVisibility(View.INVISIBLE);
         if(data != null){
-            mLoadingErrorMessageTV.setVisibility(View.VISIBLE);
+            mLoadingErrorMessageTV.setVisibility(View.INVISIBLE);
             mSearchResultsRV.setVisibility(View.VISIBLE);
             mSearchResultsList = BreweryUtils.parseBrewSearchResultsJSON(data);
             mBrewSearchAdapter.updateSearchResults(mSearchResultsList);
