@@ -84,6 +84,9 @@ public class MainActivity extends AppCompatActivity implements BrewAdapter.OnSea
                 }
             }
         });
+
+        NavigationView navigationView = (NavigationView)findViewById(R.id.nv_navigation_drawer);
+        navigationView.setNavigationItemSelectedListener(this);
     }
 
     private void doBrewSearch(String searchQuery) {
