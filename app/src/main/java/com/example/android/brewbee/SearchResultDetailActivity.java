@@ -116,6 +116,7 @@ public class SearchResultDetailActivity extends AppCompatActivity {
             return mDB.insert(BrewSearchContract.FavoriteBrew.TABLE_NAME, null, values);
         }
         else{
+            Log.d("addFavoriteToDB says: ", "Beer not added");
             return -1;
         }
     }

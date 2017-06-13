@@ -197,11 +197,6 @@ public class MainActivity extends AppCompatActivity implements BrewAdapter.OnSea
                 Intent savedResultsIntent = new Intent(this, SavedSearchResultActivity.class);
                 startActivity(savedResultsIntent);
                 return true;
-            case R.id.nav_settings:
-                mDrawerLayout.closeDrawers();
-                Intent settingsIntent = new Intent(this, SettingsActivity.class);
-                startActivity(settingsIntent);
-                return true;
             default:
                 return false;
         }

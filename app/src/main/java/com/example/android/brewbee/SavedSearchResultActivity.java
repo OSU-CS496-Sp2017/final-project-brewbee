@@ -61,7 +61,7 @@ public class SavedSearchResultActivity extends AppCompatActivity implements Brew
                 null,
                 null,
                 null,
-                BrewSearchContract.FavoriteBrew.COLUMN_BEER_NAME
+                BrewSearchContract.FavoriteBrew.COLUMN_BEER_NAME + " DESC"
         );
 
         ArrayList<BreweryUtils.BrewItem> brewItemsList = new ArrayList<>();
