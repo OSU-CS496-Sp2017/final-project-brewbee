@@ -63,10 +63,9 @@ public class SearchResultDetailActivity extends AppCompatActivity {
             mSearchResultDescriptionTV.setText(mBrewItem.description);
             mAbvTV.setText("ABV: " + mBrewItem.abvMin + " - " + mBrewItem.abvMax + "%");
 
-            Log.d("show image pls", "Here trying to add logo from " + mBrewItem.logo);
-            Picasso.with(this).load(mBrewItem.logo).into(mLogo);
-            Log.d("show image pls", "added logo?");
-
+            if(mBrewItem.logo != "") {
+                Picasso.with(this).load(mBrewItem.logo).into(mLogo);
+            }
             mIsFavorited = checkBrewIsInDB();
             updateFavoriteIconState();
         }
