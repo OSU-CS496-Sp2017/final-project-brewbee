@@ -29,7 +29,6 @@ public class BreweryUtils {
     private final static String BREWERY_KEYWORD = "key";
     private final static String BREWERY_SEARCH = "search";
     private final static String BREWERY_HAS = "hasBreweries";
-    private final static String BREWERY_BEER = "beer";
 
     private final static String BREWERY_APPID = "7c166ab511e0516204c3a689b0f53de2";
 
@@ -44,6 +43,7 @@ public class BreweryUtils {
         public Float abvMax = Float.valueOf(0);
         public String brewery = "";
         public String logo = "";
+        public String website = "";
     }
 
     public static String buildForecastURL(String brewSearch) {
@@ -65,10 +65,17 @@ public class BreweryUtils {
             JSONObject searchResultsObj = new JSONObject(searchResultsJSON);
             JSONArray searchResultsItems = searchResultsObj.getJSONArray("data");
 
+            String websiteURL = "";
+            JSONObject searchResultItem = searchResultsItems.getJSONObject(0);
+            if(searchResultItem.has("website")) {
+                websiteURL = searchResultItem.getString("website");
+                Log.d("Web", "Got website - " + websiteURL);
+            }
+
             ArrayList<BrewItem> searchResultsList = new ArrayList<BrewItem>();
-            for (int i = 0; i < searchResultsItems.getJSONObject(0).length(); i++) {
+            for (int i = 1; i < searchResultsItems.getJSONObject(0).length(); i++) {
                 BrewItem searchResult = new BrewItem();
-                JSONObject searchResultItem = searchResultsItems.getJSONObject(i);
+                searchResultItem = searchResultsItems.getJSONObject(i);
 
                 if (searchResultItem.has("description")) {
                     searchResult.description = searchResultItem.getString("description");
@@ -92,6 +99,7 @@ public class BreweryUtils {
                     if (iconInfo.has("medium")) {
                         searchResult.logo = iconInfo.getString("medium");
                     }
+
                     Log.d("BrewImg", "Got link to logo - " + searchResult.logo);
 
                     if (searchResultItem.has("style")) {
@@ -110,6 +118,7 @@ public class BreweryUtils {
 
                 }
 
+                searchResult.website = websiteURL;
 
 
 
