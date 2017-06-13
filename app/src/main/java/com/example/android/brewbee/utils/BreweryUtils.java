@@ -28,10 +28,8 @@ public class BreweryUtils {
     private final static String BREWERY_QUERY_PARAM = "q";
     private final static String BREWERY_KEYWORD = "key";
     private final static String BREWERY_SEARCH = "search";
+    private final static String BREWERY_HAS = "hasBreweries";
     private final static String BREWERY_BEER = "beer";
-    private final static String BREWERY_SORT_PARAM = "sort";
-    private final static String BREWERY_DEFAULT_SORT = "stars";
-
 
     private final static String BREWERY_APPID = "7c166ab511e0516204c3a689b0f53de2";
 
@@ -55,6 +53,8 @@ public class BreweryUtils {
                     .appendPath(BREWERY_SEARCH)
                     .appendQueryParameter(BREWERY_QUERY_PARAM, brewSearch)
                     .appendQueryParameter(BREWERY_KEYWORD, BREWERY_APPID)
+   //                 .appendQueryParameter(BREWERY_HAS, "Y")
+                    .appendQueryParameter("type", BREWERY_BEER )
                     .build()
                     .toString();
     }
@@ -67,17 +67,25 @@ public class BreweryUtils {
             ArrayList<BrewItem> searchResultsList = new ArrayList<BrewItem>();
             for (int i = 0; i < searchResultsItems.length(); i++) {
                 BrewItem searchResult = new BrewItem();
-                JSONObject searchResultItem = searchResultsItems.getJSONObject(i);
+                JSONObject searchResultItem = searchResultsItems.getJSONObject(i+1);
 
                 searchResult.description = searchResultItem.getString("description");
+                Log.d("BrewDesc", "Got description " + searchResult.description);
+
                 searchResult.brewID = searchResultItem.getString("id");
+                Log.d("BrewID", "Got ID " + searchResult.brewID);
+
                 searchResult.fullname = searchResultItem.getString("name");
+                Log.d("BrewName", "Got Name " + searchResult.fullname);
 
                 JSONObject styleInfo = searchResultItem.getJSONObject("style");
-                searchResult.abvMin = Float.valueOf(styleInfo.getString("abvMin"));
-                searchResult.abvMax = Float.valueOf(styleInfo.getString("abvMax"));
 
-                Log.d("Bresults", searchResult.brewID + "\n" + searchResult.description + "\n" + searchResult.fullname + " has " + searchResult.abvMin);
+                searchResult.abvMin = Float.valueOf(styleInfo.getString("abvMin"));
+                Log.d("AbvMin", "Got MinABV " + searchResult.abvMin);
+
+                searchResult.abvMax = Float.valueOf(styleInfo.getString("abvMax"));
+                Log.d("AbvMax", "Got MaxABV " + searchResult.abvMax);
+
                 searchResultsList.add(searchResult);
             }
             return searchResultsList;
