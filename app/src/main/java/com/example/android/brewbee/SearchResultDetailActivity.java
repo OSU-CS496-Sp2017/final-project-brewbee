@@ -104,7 +104,7 @@ public class SearchResultDetailActivity extends AppCompatActivity {
     private void deleteFavoriteFromDB(){
         if(mBrewItem != null){
             String sqlSelection = BrewSearchContract.FavoriteBrew.COLUMN_BEER_NAME + " = ?";
-            String[] sqlSelectionArgs = { mBrewItem.fullname };
+            String[] sqlSelectionArgs = { mBrewItem.brewID };
             mDB.delete(BrewSearchContract.FavoriteBrew.TABLE_NAME, sqlSelection, sqlSelectionArgs);
         }
     }
