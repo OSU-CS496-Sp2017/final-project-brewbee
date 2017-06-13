@@ -91,7 +91,7 @@ public class SearchResultDetailActivity extends AppCompatActivity {
             mFavoriteIV.setImageResource(R.drawable.ic_star_yellow);
         }
         else{
-            mFavoriteIV.setImageResource(R.drawable.ic_star_border_black);
+            mFavoriteIV.setImageResource(R.drawable.ic_star_border_pink);
         }
     }
 
