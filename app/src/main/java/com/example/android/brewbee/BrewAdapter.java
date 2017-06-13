@@ -26,6 +26,17 @@ public class BrewAdapter extends RecyclerView.Adapter<BrewAdapter.SearchResultVi
         mSearchResultsList = searchResultsList;
         notifyDataSetChanged();
     }
+
+    @Override
+    public int getItemCount() {
+        if(mSearchResultsList != null) {
+            return mSearchResultsList.size();
+        }
+        else {
+            return 0;
+        }
+
+    }
     @Override
     public SearchResultViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
@@ -39,16 +50,7 @@ public class BrewAdapter extends RecyclerView.Adapter<BrewAdapter.SearchResultVi
         holder.bind(mSearchResultsList.get(position));
     }
 
-    @Override
-    public int getItemCount() {
-        if(mSearchResultsList != null) {
-            return mSearchResultsList.size();
-        }
-        else {
-            return 0;
-        }
 
-    }
     public interface OnSearchResultClickListener {
         void onSearchResultClick(BreweryUtils.BrewItem searchResult);
     }
