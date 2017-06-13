@@ -2,7 +2,7 @@
     <string name="app_name">BrewBee</string>
     <string name="loading_error_message" />
     <string name="action_location">Show brewery location</string>
-    <string name="saved_search_results">Favorte Brews</string>
+    <string name="saved_search_results">Favorite Brews</string>
 
     <string name="share_chooser_title">Pick an app to share this Beer</string>
 
