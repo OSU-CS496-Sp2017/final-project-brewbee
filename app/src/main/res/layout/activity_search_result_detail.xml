@@ -14,7 +14,7 @@
         android:textColor="#000"
         android:padding="16dp"/>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -35,7 +35,7 @@
             android:layout_marginBottom="10dp"
             android:src="@drawable/ic_star_border_black_36dp"/>
 
-    </LinearLayout>
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/tv_search_result_abv"
