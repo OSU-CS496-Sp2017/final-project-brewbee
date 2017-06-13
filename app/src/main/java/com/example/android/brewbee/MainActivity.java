@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements BrewAdapter.OnSea
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //    setContentView(R.layout.activity_main);
+    //    setContentView(R.layout.activity_main);
         mSearchResultsList = null;
 
         mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
