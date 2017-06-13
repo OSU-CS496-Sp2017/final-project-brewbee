@@ -43,6 +43,7 @@ public class BreweryUtils {
         public Float abvMin = Float.valueOf(0);
         public Float abvMax = Float.valueOf(0);
         public String brewery = "";
+        public String logo = "";
     }
 
     public static String buildForecastURL(String brewSearch) {
@@ -69,34 +70,43 @@ public class BreweryUtils {
                 BrewItem searchResult = new BrewItem();
                 JSONObject searchResultItem = searchResultsItems.getJSONObject(i);
 
-                if (searchResultItem.has("description")){
+                if (searchResultItem.has("description")) {
                     searchResult.description = searchResultItem.getString("description");
                 }
 
                 Log.d("BrewDesc", "Got description " + searchResult.description);
 
-                if (searchResultItem.has("id")){
+                if (searchResultItem.has("id")) {
                     searchResult.brewID = searchResultItem.getString("id");
                 }
                 Log.d("BrewID", "Got ID " + searchResult.brewID);
 
-                if (searchResultItem.has("name")){
+                if (searchResultItem.has("name")) {
                     searchResult.fullname = searchResultItem.getString("name");
                 }
                 Log.d("BrewName", "Got Name " + searchResult.fullname);
 
-                if(searchResultItem.has("style")){
-                    JSONObject styleInfo = searchResultItem.getJSONObject("style");
+                if(searchResultItem.has("labels")) {
+                    JSONObject iconInfo = searchResultItem.getJSONObject("labels");
 
-                    if(styleInfo.has("abvMin")){
-                        searchResult.abvMin = Float.valueOf(styleInfo.getString("abvMin"));
+                    if (iconInfo.has("medium")) {
+                        searchResult.logo = iconInfo.getString("medium");
                     }
-                    Log.d("AbvMin", "Got MinABV " + searchResult.abvMin);
+                    Log.d("BrewImg", "Got link to logo - " + searchResult.logo);
 
-                    if(styleInfo.has("abvMax")) {
-                        searchResult.abvMax = Float.valueOf(styleInfo.getString("abvMax"));
+                    if (searchResultItem.has("style")) {
+                        JSONObject styleInfo = searchResultItem.getJSONObject("style");
+
+                        if (styleInfo.has("abvMin")) {
+                            searchResult.abvMin = Float.valueOf(styleInfo.getString("abvMin"));
+                        }
+                        Log.d("AbvMin", "Got MinABV " + searchResult.abvMin);
+
+                        if (styleInfo.has("abvMax")) {
+                            searchResult.abvMax = Float.valueOf(styleInfo.getString("abvMax"));
+                        }
+                        Log.d("AbvMax", "Got MaxABV " + searchResult.abvMax);
                     }
-                    Log.d("AbvMax", "Got MaxABV " + searchResult.abvMax);
 
                 }
 

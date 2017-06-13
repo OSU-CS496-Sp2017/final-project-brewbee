@@ -21,6 +21,9 @@ import com.example.android.brewbee.R;
 import com.example.android.brewbee.data.BrewSearchContract;
 import com.example.android.brewbee.data.BrewSearchDBHelper;
 import com.example.android.brewbee.utils.BreweryUtils;
+import com.squareup.picasso.Picasso;
+
+import org.w3c.dom.Text;
 
 /**
  * Created by Bradley on 6/10/2017.
@@ -30,20 +33,23 @@ public class SearchResultDetailActivity extends AppCompatActivity {
     private ImageView mFavoriteIV;
     private TextView mSearchResultNameTV;
     private TextView mSearchResultDescriptionTV;
+    private TextView mAbvTV;
     private TextView mSearchResultStarsTV;
     private BreweryUtils.BrewItem mBrewItem;
     private SQLiteDatabase mDB;
     private boolean mIsFavorited;
+    private ImageView mLogo;
 
     @Override
     protected void onCreate(Bundle saveInstanceState){
         super.onCreate(saveInstanceState);
         setContentView(R.layout.activity_search_result_detail);
 
+        mLogo = (ImageView)findViewById(R.id.iv_beer_logo);
         mFavoriteIV = (ImageView)findViewById(R.id.iv_search_result_favorite);
         mSearchResultNameTV = (TextView)findViewById(R.id.tv_search_result_name);
+        mAbvTV = (TextView)findViewById(R.id.tv_search_result_abv);
         mSearchResultDescriptionTV = (TextView)findViewById(R.id.tv_search_result_description);
- //       mSearchResultStarsTV = (TextView)findViewById(R.id.tv_search_result_stars);
         mSearchResultDescriptionTV.setMovementMethod(new ScrollingMovementMethod());
         BrewSearchDBHelper dbHelper = new BrewSearchDBHelper(this);
         mDB = dbHelper.getWritableDatabase();
@@ -53,8 +59,13 @@ public class SearchResultDetailActivity extends AppCompatActivity {
             Log.d("Intent", "inside if");
             mBrewItem = (BreweryUtils.BrewItem)intent.getSerializableExtra(BreweryUtils.BrewItem.EXTRA_SEARCH_RESULT);
             mSearchResultNameTV.setText(mBrewItem.fullname);
+
             mSearchResultDescriptionTV.setText(mBrewItem.description);
-            //mSearchResultStarsTV.setText(Integer.toString(mBrewItem.stars));
+            mAbvTV.setText("ABV: " + mBrewItem.abvMin + " - " + mBrewItem.abvMax + "%");
+
+            Log.d("show image pls", "Here trying to add logo from " + mBrewItem.logo);
+            Picasso.with(this).load(mBrewItem.logo).into(mLogo);
+            Log.d("show image pls", "added logo?");
 
             mIsFavorited = checkBrewIsInDB();
             updateFavoriteIconState();
