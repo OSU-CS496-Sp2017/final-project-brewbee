@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.text.method.LinkMovementMethod;
 
 import com.example.android.brewbee.R;
 import com.example.android.brewbee.data.BrewSearchContract;
@@ -35,7 +36,7 @@ public class SearchResultDetailActivity extends AppCompatActivity {
     private TextView mSearchResultNameTV;
     private TextView mSearchResultDescriptionTV;
     private TextView mAbvTV;
-    private TextView mSearchResultStarsTV;
+    private TextView mSearchResultsLinkTV;
     private BreweryUtils.BrewItem mBrewItem;
     private SQLiteDatabase mDB;
     private boolean mIsFavorited;
@@ -50,6 +51,7 @@ public class SearchResultDetailActivity extends AppCompatActivity {
         mFavoriteIV = (ImageView)findViewById(R.id.iv_search_result_favorite);
         mSearchResultNameTV = (TextView)findViewById(R.id.tv_search_result_name);
         mAbvTV = (TextView)findViewById(R.id.tv_search_result_abv);
+        mSearchResultsLinkTV = (TextView)findViewById(R.id.tv_search_result_link);
         mSearchResultDescriptionTV = (TextView)findViewById(R.id.tv_search_result_description);
         mSearchResultDescriptionTV.setMovementMethod(new ScrollingMovementMethod());
         BrewSearchDBHelper dbHelper = new BrewSearchDBHelper(this);
@@ -60,9 +62,12 @@ public class SearchResultDetailActivity extends AppCompatActivity {
             Log.d("Intent", "inside if");
             mBrewItem = (BreweryUtils.BrewItem)intent.getSerializableExtra(BreweryUtils.BrewItem.EXTRA_SEARCH_RESULT);
             mSearchResultNameTV.setText(mBrewItem.fullname);
-
             mSearchResultDescriptionTV.setText(mBrewItem.description);
             mAbvTV.setText("ABV: " + mBrewItem.abvMin + " - " + mBrewItem.abvMax + "%");
+
+            if(mBrewItem.website != "") {
+                mSearchResultsLinkTV.setText("Website: " + mBrewItem.website);
+            }
 
             if(mBrewItem.logo != "") {
                 Picasso.with(this).load(mBrewItem.logo).into(mLogo);
