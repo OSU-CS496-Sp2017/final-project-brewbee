@@ -55,6 +55,7 @@ public class SearchResultDetailActivity extends AppCompatActivity {
             //mSearchResultStarsTV.setText(Integer.toString(mBrewItem.stars));
 
             mIsFavorited = checkBrewIsInDB();
+            updateFavoriteIconState();
         }
 
         mFavoriteIV.setOnClickListener(new View.OnClickListener() {
