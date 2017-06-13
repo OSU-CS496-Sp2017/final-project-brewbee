@@ -51,7 +51,7 @@ public class SearchResultDetailActivity extends AppCompatActivity {
         mFavoriteIV = (ImageView)findViewById(R.id.iv_search_result_favorite);
         mSearchResultNameTV = (TextView)findViewById(R.id.tv_search_result_name);
         mAbvTV = (TextView)findViewById(R.id.tv_search_result_abv);
-        //mSearchResultsLinkTV = (TextView)findViewById(R.id.tv_search_result_link);
+        mSearchResultsLinkTV = (TextView)findViewById(R.id.tv_search_result_link);
         mSearchResultDescriptionTV = (TextView)findViewById(R.id.tv_search_result_description);
         mSearchResultDescriptionTV.setMovementMethod(new ScrollingMovementMethod());
         BrewSearchDBHelper dbHelper = new BrewSearchDBHelper(this);
