@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements BrewAdapter.OnSea
     @Override
     public void onSearchResultClick(BreweryUtils.BrewItem searchResult) {
         Intent intent = new Intent(this, SearchResultDetailActivity.class);
-        getIntent().putExtra(BreweryUtils.BrewItem.EXTRA_SEARCH_RESULT, searchResult);
+        intent.putExtra(BreweryUtils.BrewItem.EXTRA_SEARCH_RESULT, searchResult);
         startActivity(intent);
     }
 

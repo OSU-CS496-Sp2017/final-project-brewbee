@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import android.util.Log;
 import android.view.Menu;
 
 import android.view.MenuItem;
@@ -45,10 +46,10 @@ public class SearchResultDetailActivity extends AppCompatActivity {
 
         BrewSearchDBHelper dbHelper = new BrewSearchDBHelper(this);
         mDB = dbHelper.getWritableDatabase();
-
+        Log.d("Intent", "outside if");
         Intent intent = getIntent();
         if(intent != null && intent.hasExtra(BreweryUtils.BrewItem.EXTRA_SEARCH_RESULT)){
-
+            Log.d("Intent", "inside if");
             mBrewItem = (BreweryUtils.BrewItem)intent.getSerializableExtra(BreweryUtils.BrewItem.EXTRA_SEARCH_RESULT);
             mSearchResultNameTV.setText(mBrewItem.fullname);
             mSearchResultDescriptionTV.setText(mBrewItem.description);
