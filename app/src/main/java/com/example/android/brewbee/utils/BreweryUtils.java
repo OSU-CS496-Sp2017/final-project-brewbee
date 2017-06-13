@@ -42,10 +42,9 @@ public class BreweryUtils {
         public String brewID;
         public String fullname;
         public String description;
-        public float abvMin;
-        public float abvMax;
+        public Float abvMin;
+        public Float abvMax;
         public String brewery;
-//        public String htmlURL;
     }
 
     public static String buildForecastURL(String brewSearch) {
@@ -63,17 +62,22 @@ public class BreweryUtils {
     public static ArrayList<BrewItem> parseBrewSearchResultsJSON(String searchResultsJSON) {
         try {
             JSONObject searchResultsObj = new JSONObject(searchResultsJSON);
-            JSONArray searchResultsItems = searchResultsObj.getJSONArray("items");
+            JSONArray searchResultsItems = searchResultsObj.getJSONArray("data");
 
             ArrayList<BrewItem> searchResultsList = new ArrayList<BrewItem>();
             for (int i = 0; i < searchResultsItems.length(); i++) {
                 BrewItem searchResult = new BrewItem();
                 JSONObject searchResultItem = searchResultsItems.getJSONObject(i);
-                searchResult.brewID = searchResultItem.getString("id");
- //               searchResult.fullname = searchResultItem.getString("full_name");
+
                 searchResult.description = searchResultItem.getString("description");
- //               searchResult.htmlURL = searchResultItem.getString("html_url");
-                Log.d("Bresults", searchResult.brewID + " " + searchResult.description);
+                searchResult.brewID = searchResultItem.getString("id");
+                searchResult.fullname = searchResultItem.getString("name");
+
+                JSONObject styleInfo = searchResultItem.getJSONObject("style");
+                searchResult.abvMin = Float.valueOf(styleInfo.getString("abvMin"));
+                searchResult.abvMax = Float.valueOf(styleInfo.getString("abvMax"));
+
+                Log.d("Bresults", searchResult.brewID + "\n" + searchResult.description + "\n" + searchResult.fullname + " has " + searchResult.abvMin);
                 searchResultsList.add(searchResult);
             }
             return searchResultsList;
