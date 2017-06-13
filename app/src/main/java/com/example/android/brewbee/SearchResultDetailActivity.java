@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.Menu;
 
@@ -43,7 +44,7 @@ public class SearchResultDetailActivity extends AppCompatActivity {
         mSearchResultNameTV = (TextView)findViewById(R.id.tv_search_result_name);
         mSearchResultDescriptionTV = (TextView)findViewById(R.id.tv_search_result_description);
  //       mSearchResultStarsTV = (TextView)findViewById(R.id.tv_search_result_stars);
-
+        mSearchResultDescriptionTV.setMovementMethod(new ScrollingMovementMethod());
         BrewSearchDBHelper dbHelper = new BrewSearchDBHelper(this);
         mDB = dbHelper.getWritableDatabase();
         Log.d("Intent", "outside if");
