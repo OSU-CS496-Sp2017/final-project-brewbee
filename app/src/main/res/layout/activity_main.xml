@@ -9,17 +9,20 @@
     tools:context=".MainActivity">
 
     <LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="8sp">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="8sp"
+        android:background="@drawable/activity_bg">
 
     <EditText
         android:id="@+id/et_search_box"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="24sp"
-        android:hint="Search for Brewery or Brews..."/>
+        android:textColor="#ffffff"
+        android:hint="Search for Brewery or Brews.."
+        android:textColorHint="#ffffff"/>
 
     <Button
         android:id="@+id/btn_search"

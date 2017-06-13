@@ -2,13 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
+    android:textColor="#ffffff"
+    android:background="@drawable/activity_bg"
     android:layout_height="match_parent">
     tools:context="com.example.android.brewbee.SavedSearchResultActivity">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_saved_search_results"
+        android:textColor="#ffffff"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
-
 
 </LinearLayout>

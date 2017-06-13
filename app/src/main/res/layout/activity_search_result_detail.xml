@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/activity_bg"
     tools:context="com.example.android.brewbee.SearchResultDetailActivity">
 
     <TextView
@@ -11,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="40sp"
-        android:textColor="#000"
+        android:textColor="#ffffff"
         android:padding="16dp"/>
 
     <RelativeLayout
@@ -43,6 +44,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:maxLines = "2"
+        android:textColor="#ffffff"
         android:clickable="true"
         android:autoLink="web"
         android:scrollbars = "vertical"
@@ -55,6 +57,7 @@
         android:layout_height="wrap_content"
         android:maxLines = "3"
         android:scrollbars = "vertical"
+        android:textColor="#ffffff"
         android:padding="16dp"
         android:textSize="22dp"/>
 
@@ -64,6 +67,7 @@
         android:layout_height="wrap_content"
         android:maxLines = "20"
         android:scrollbars = "vertical"
+        android:textColor="#ffffff"
         android:padding="16dp"
         android:textSize="22dp"/>
 

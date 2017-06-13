@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.graphics.Color;
 
 import com.example.android.brewbee.utils.BreweryUtils;
 
@@ -48,6 +49,7 @@ public class BrewAdapter extends RecyclerView.Adapter<BrewAdapter.SearchResultVi
     @Override
     public void onBindViewHolder(SearchResultViewHolder holder, int position) {
         holder.bind(mSearchResultsList.get(position));
+        holder.mSearchResultTV.setTextColor(Color.parseColor("#ffffff"));
     }
 
 
