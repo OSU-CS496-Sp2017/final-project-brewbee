@@ -1,5 +1,11 @@
 package com.example.android.brewbee;
 
+import android.content.res.Configuration;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Intent;
@@ -10,6 +16,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,13 +30,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 
-public class MainActivity extends AppCompatActivity implements BrewAdapter.OnSearchResultClickListener, LoaderManager.LoaderCallbacks<String>{
+public class MainActivity extends AppCompatActivity implements BrewAdapter.OnSearchResultClickListener, LoaderManager.LoaderCallbacks<String>, NavigationView.OnNavigationItemSelectedListener{
 
     private static final String TAG = MainActivity.class.getSimpleName();
     private static final String SEARCH_RESULTS_LIST_KEY = "searchResultsList";
     private static final String SEARCH_URL_KEY = "brewSearchURL";
     private static final int BREW_SEARCH_LOADER_ID = 0;
 
+    private DrawerLayout mDrawerLayout;
+    private ActionBarDrawerToggle mDrawerToggle;
     private RecyclerView mSearchResultsRV;
     private EditText mSearchBoxET;
     private ProgressBar mLoadingIndicatorPB;
@@ -42,9 +51,10 @@ public class MainActivity extends AppCompatActivity implements BrewAdapter.OnSea
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-    //    setContentView(R.layout.activity_main);
+        //    setContentView(R.layout.activity_main);
         mSearchResultsList = null;
 
+        mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
         mSearchBoxET = (EditText)findViewById(R.id.et_search_box);
         mLoadingIndicatorPB = (ProgressBar)findViewById(R.id.pb_loading_indicator);
         mLoadingErrorMessageTV = (TextView)findViewById(R.id.tv_loading_error_message);
@@ -55,6 +65,12 @@ public class MainActivity extends AppCompatActivity implements BrewAdapter.OnSea
 
         mBrewSearchAdapter = new BrewAdapter(this);
         mSearchResultsRV.setAdapter(mBrewSearchAdapter);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close);
+        mDrawerLayout.addDrawerListener(mDrawerToggle);
 
         getSupportLoaderManager().initLoader(BREW_SEARCH_LOADER_ID, null, this);
 
@@ -77,6 +93,26 @@ public class MainActivity extends AppCompatActivity implements BrewAdapter.OnSea
         argsBundle.putString(SEARCH_URL_KEY, brewSearchURL);
         getSupportLoaderManager().restartLoader(BREW_SEARCH_LOADER_ID, argsBundle, this);
 
+    }
+
+    @Override
+    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        mDrawerToggle.syncState();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig){
+        super.onConfigurationChanged(newConfig);
+        mDrawerToggle.onConfigurationChanged(newConfig);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        if(mDrawerToggle.onOptionsItemSelected(item)){
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -150,5 +186,25 @@ public class MainActivity extends AppCompatActivity implements BrewAdapter.OnSea
 
     }
 
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item){
+        switch (item.getItemId()){
+            case R.id.nav_search:
+                mDrawerLayout.closeDrawers();
+                return true;
+            case R.id.nav_saved_results:
+                mDrawerLayout.closeDrawers();
+                Intent savedResultsIntent = new Intent(this, SavedSearchResultActivity.class);
+                startActivity(savedResultsIntent);
+                return true;
+            case R.id.nav_settings:
+                mDrawerLayout.closeDrawers();
+                Intent settingsIntent = new Intent(this, SettingsActivity.class);
+                startActivity(settingsIntent);
+                return true;
+            default:
+                return false;
+        }
+    }
 
 }
