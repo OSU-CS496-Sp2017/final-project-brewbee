@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.ShareCompat;
 import android.support.v7.app.AppCompatActivity;
 
 import android.text.method.ScrollingMovementMethod;
@@ -147,13 +148,30 @@ public class SearchResultDetailActivity extends AppCompatActivity {
 
     //share location stuff
     public void showForecastLocation() {
-        Uri geoUri = Uri.parse("geo:0,0").buildUpon()
-                .appendQueryParameter("q","temp" /*location here*/)
+        /*Uri geoUri = Uri.parse("geo:0,0").buildUpon()
+                .appendQueryParameter("q","temp" )
                 .build();
-        Intent mapIntent = new Intent(Intent.ACTION_VIEW, geoUri);
-       if (mapIntent.resolveActivity(getPackageManager()) != null) {
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW, geoUri);*/
+
+        /*if (mapIntent.resolveActivity(getPackageManager()) != null) {
             startActivity(mapIntent);
-       }
+        }*/
+
+        if (mBrewItem != null) {
+            //Log.d(TAG, "UnitSendOut inside shareForecast value: " + mUnitValue);
+            String shareText = mBrewItem.fullname +
+                    ": ABV: " + mBrewItem.abvMin +
+                    //WeatherPreferences.getDefaultTemperatureUnitsAbbr() +
+                    " - " +
+                    mBrewItem.abvMax +
+                    "%\n \n" + mBrewItem.description
+                    ;
+            ShareCompat.IntentBuilder.from(this)
+                    .setType("text/plain")
+                    .setText(shareText)
+                    .setChooserTitle(R.string.share_chooser_title)
+                    .startChooser();
+        }
     }
 
     @Override
@@ -165,7 +183,7 @@ public class SearchResultDetailActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_location:
+            case R.id.action_share:
                 showForecastLocation();
                 return true;
             default:
