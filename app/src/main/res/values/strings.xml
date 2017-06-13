@@ -3,5 +3,14 @@
     <string name="loading_error_message" />
     <string name="action_location">Show brewery location</string>
     <string name="saved_search_results">Favorte Brews</string>
+
     <string name="share_chooser_title">Pick an app to share this Beer</string>
+
+
+    <string name="drawer_open">Open Drawer</string>
+    <string name="drawer_close">Shut Drawer</string>
+    <string name="saved_results">Favorite Beers</string>
+    <string name="action_settings">Settings</string>
+    <string name="search">Search</string>
+
 </resources>
