@@ -96,7 +96,11 @@ public class BreweryUtils {
                 if(searchResultItem.has("labels")) {
                     JSONObject iconInfo = searchResultItem.getJSONObject("labels");
 
-                    if (iconInfo.has("medium")) {
+                    if (iconInfo.has("large")) {
+                        searchResult.logo = iconInfo.getString("large");
+                    }
+
+                    else if(iconInfo.has("medium")) {
                         searchResult.logo = iconInfo.getString("medium");
                     }
 
