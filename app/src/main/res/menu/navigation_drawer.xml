@@ -9,4 +9,5 @@
         android:id="@+id/nav_saved_results"
         android:title="@string/saved_results"
         android:icon="@drawable/ic_nav_saved_saved_results"/>
+
 </menu>

@@ -26,7 +26,6 @@ public class BrewSearchDBHelper extends SQLiteOpenHelper {
                  BrewSearchContract.FavoriteBrew.COLUMN_BREWERY + " TEXT, " +
                  BrewSearchContract.FavoriteBrew.COLUMN_API_ID + " TEXT, " +
                  BrewSearchContract.FavoriteBrew.COLUMN_ABV_MIN + " REAL, " +
-                 BrewSearchContract.FavoriteBrew.COLUMN_ABV_MAX + " REAL " +
                  ");";
         db.execSQL(SQL_CREATE_FAVORITE_BEER_TABLE);
     }
