@@ -35,7 +35,6 @@ public class SearchResultDetailActivity extends AppCompatActivity {
     private TextView mSearchResultNameTV;
     private TextView mSearchResultDescriptionTV;
     private TextView mAbvTV;
-    private TextView mSearchResultStarsTV;
     private BreweryUtils.BrewItem mBrewItem;
     private SQLiteDatabase mDB;
     private boolean mIsFavorited;
@@ -111,6 +110,7 @@ public class SearchResultDetailActivity extends AppCompatActivity {
             return mDB.insert(BrewSearchContract.FavoriteBrew.TABLE_NAME, null, values);
         }
         else{
+            Log.d("addFavoriteToDB says: ", "Beer not added");
             return -1;
         }
     }
